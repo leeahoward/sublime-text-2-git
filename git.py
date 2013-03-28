@@ -209,6 +209,8 @@ class GitCommand(object):
                 command[0] = GIT
         if command[0] == 'git-flow' and s.get('git_flow_command'):
             command[0] = s.get('git_flow_command')
+        if command[0] == 'gitk' and os.name =='nt':
+            command[0] = 'gitk.cmd'
         if not callback:
             callback = self.generic_done
 
@@ -383,5 +385,5 @@ class GitGuiCommand(GitTextCommand):
 
 class GitGitkCommand(GitTextCommand):
     def run(self, edit):
-        command = ['gitk']
+        command = ['gitk','-all']
         self.run_command(command)
